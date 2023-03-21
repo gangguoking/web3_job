@@ -3,10 +3,13 @@ import json
 import scrapy
 
 
+MAX_PAGE = 3
+
+
 class Web3CareerSpider(scrapy.Spider):
     name = "web3_career"
     allowed_domains = ["web3.career"]
-    start_urls = ["http://web3.career/"]
+    start_urls = ["https://web3.career/"]
 
     def parse(self, response):
         post_jd_xpath_list = response.xpath('//script[@type="application/ld+json"]')
@@ -15,6 +18,18 @@ class Web3CareerSpider(scrapy.Spider):
             json_data = json.loads(row.root.text)
             post_jd_list.append(json_data)
             yield json_data
+
+        if response.url == "https://web3.career/":
+            next_url = "https://web3.career/?page={page}".format(page="2")
+        else:
+            page = response.url.split('page=')[-1]
+            if int(page) > MAX_PAGE - 1:
+                return
+            next_url = "https://web3.career/?page={page}".format(page=str(int(page) + 1))
+
+        yield scrapy.Request(url=next_url,
+                             dont_filter=True,
+                             callback=self.parse)
 
 
 # use scrapy，local
