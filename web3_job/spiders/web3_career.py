@@ -16,8 +16,12 @@ class Web3CareerSpider(scrapy.Spider):
         post_jd_list = []
         for row in post_jd_xpath_list:
             json_data = json.loads(row.root.text)
-            post_jd_list.append(json_data)
+            if json_data['@type'] == 'JobPosting':
+                post_jd_list.append(json_data)
             yield json_data
+
+        with open('data.json', 'w', encoding='utf-8') as fp:
+            json.dump({'post_jd_list': post_jd_list}, fp)
 
         if response.url == "https://web3.career/":
             next_url = "https://web3.career/?page={page}".format(page="2")
