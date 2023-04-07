@@ -4,7 +4,7 @@ import logging
 import scrapy
 
 
-MAX_PAGE = 7
+MAX_PAGE = 2
 
 
 class Web3CareerSpider(scrapy.Spider):
@@ -13,6 +13,11 @@ class Web3CareerSpider(scrapy.Spider):
     start_urls = ["https://web3.career/"]
 
     def parse(self, response):
+        post_career_xpath_list = response.xpath('///table[@class="table table-borderless"]/tbody[@class="tbody"]/tr')
+        print(len(post_career_xpath_list))
+        for row in post_career_xpath_list:
+            job_id = row.xpath('./td[1]/div/div/div/a[@style=" text-decoration: none"]').attrib['href']
+            print(job_id)
         post_jd_xpath_list = response.xpath('//script[@type="application/ld+json"]')
         for row in post_jd_xpath_list:
             try:

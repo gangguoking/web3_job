@@ -62,9 +62,11 @@ ROBOTSTXT_OBEY = False
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    "web3_job.pipelines.Web3JobPipeline": 300,
-#}
+ITEM_PIPELINES = {
+    # "web3_job.pipelines.Web3JobPipeline": 300,
+    "web3_job.pipelines.RedisPipeline": 404,
+
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
@@ -91,3 +93,8 @@ ROBOTSTXT_OBEY = False
 REQUEST_FINGERPRINTER_IMPLEMENTATION = "2.7"
 TWISTED_REACTOR = "twisted.internet.asyncioreactor.AsyncioSelectorReactor"
 FEED_EXPORT_ENCODING = "utf-8"
+
+# redis settings
+REDIS_HOST = '127.0.0.1'
+REDIS_PORT = 6379
+REDIS_DB_INDEX = 0
