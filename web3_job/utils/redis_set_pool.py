@@ -14,7 +14,6 @@ class IndexTool(object):
         self.pool = redis.ConnectionPool(
             host=host,
             port=port,
-            password=pwd,
             db=db,
             decode_responses=True
         )

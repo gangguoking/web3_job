@@ -7,6 +7,9 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
+from web3_job.utils.config import get_config
+from web3_job.utils import redis_set_pool
+
 BOT_NAME = "web3_job"
 
 SPIDER_MODULES = ["web3_job.spiders"]
@@ -94,6 +97,12 @@ TWISTED_REACTOR = "twisted.internet.asyncioreactor.AsyncioSelectorReactor"
 FEED_EXPORT_ENCODING = "utf-8"
 
 # redis settings
-REDIS_HOST = '127.0.0.1'
-REDIS_PORT = 6379
-REDIS_DB_INDEX = 0
+REDIS_HOST = get_config("redis", "host")
+REDIS_PORT = int(get_config("redis", "port"))
+REDIS_PASSWORD = get_config("redis", "password")
+REDIS_DB_INDEX = get_config("redis", "db")
+
+redis_tool = redis_set_pool.IndexTool(host=REDIS_HOST,
+                                      port=REDIS_PORT,
+                                      pwd=REDIS_PASSWORD,
+                                      db=REDIS_DB_INDEX)
