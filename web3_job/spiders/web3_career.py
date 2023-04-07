@@ -17,7 +17,7 @@ class Web3CareerSpider(scrapy.Spider):
         job_dict = {}
         for row in post_career_xpath_list:
             job_id = row.xpath('./td[1]/div/div/div/a[@style=" text-decoration: none"]').attrib['href']
-            job_name = row.xpath('./td[1]/div/div/div/a[@style=" text-decoration: none"]/h2')[0].root.text[:-1]
+            job_name = row.xpath('./td[1]/div/div/div/a[@style=" text-decoration: none"]/h2')[0].root.text[1:-1]
             job_dict[job_name] = job_id
 
         post_jd_xpath_list = response.xpath('//script[@type="application/ld+json"]')
@@ -28,6 +28,9 @@ class Web3CareerSpider(scrapy.Spider):
                 logging.warning(exc)
                 continue
             if json_data['@type'] == 'JobPosting':
+                for job_name in job_dict:
+                    if job_name == json_data['title'].replace(',', '').replace('- ', ''):
+                        print(job_name, json_data)
                 yield json_data
 
         if response.url == "https://web3.career/":
