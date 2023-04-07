@@ -17,7 +17,8 @@ class Web3CareerSpider(scrapy.Spider):
         print(len(post_career_xpath_list))
         for row in post_career_xpath_list:
             job_id = row.xpath('./td[1]/div/div/div/a[@style=" text-decoration: none"]').attrib['href']
-            print(job_id)
+            job_name = row.xpath('./td[1]/div/div/div/a[@style=" text-decoration: none"]/h2')[0].root.text[:-1]
+            print(job_id, job_name)
         post_jd_xpath_list = response.xpath('//script[@type="application/ld+json"]')
         for row in post_jd_xpath_list:
             try:
