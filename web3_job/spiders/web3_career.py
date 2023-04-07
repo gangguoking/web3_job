@@ -1,8 +1,9 @@
 import json
+import logging
 
 import scrapy
 
-MAX_PAGE = 2
+MAX_PAGE = 15
 
 
 class Web3CareerSpider(scrapy.Spider):
@@ -11,6 +12,11 @@ class Web3CareerSpider(scrapy.Spider):
     start_urls = ["https://web3.career/"]
 
     def parse(self, response):
+        """
+
+        :param response:
+        :return:
+        """
         post_career_xpath_list = response.xpath('//table[@class="table table-borderless"]/tbody[@class="tbody"]/tr')
         for row in post_career_xpath_list:
             job_dict = {}
@@ -46,9 +52,14 @@ class Web3CareerSpider(scrapy.Spider):
         :return:
         """
         jd_xpath = response.xpath('//div/script[@type="application/ld+json"]')[0]
-        json_data = json.loads(jd_xpath.root.text)
+        try:
+            json_data = json.loads(jd_xpath.root.text)
+        except Exception as exc:
+            logging.error(f"{jd_xpath}\n\n{exc}\n ")
+            return
         json_data['jobId'] = response.meta['job_dict']['job_id']
         json_data['jobTags'] = response.meta['job_dict']['job_tags']
+        json_data['sourceUrl'] = response.url
         json_data['fromSource'] = 'web3.career'
         yield json_data
 
