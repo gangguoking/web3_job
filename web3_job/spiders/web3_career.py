@@ -12,16 +12,20 @@ class Web3CareerSpider(scrapy.Spider):
 
     def parse(self, response):
         post_career_xpath_list = response.xpath('//table[@class="table table-borderless"]/tbody[@class="tbody"]/tr')
-        job_dict = {}
         for row in post_career_xpath_list:
+            job_dict = {}
+            job_tag_list = []
             job_id = row.xpath('./td[1]/div/div/div/a[@style=" text-decoration: none"]').attrib['href']
-            job_name = row.xpath('./td[1]/div/div/div/a[@style=" text-decoration: none"]/h2')[0].root.text[1:-1]
-            job_dict[job_name] = job_id
+            job_tag_xpath_list = row.xpath('./td[6]/div/span/a')
+            for job_tag_xpath in job_tag_xpath_list:
+                job_tag_list.append(job_tag_xpath.root.text[1:-1])
+            job_dict["job_id"] = job_id
+            job_dict["job_tags"] = job_tag_list
             job_url = f"https://web3.career{job_id}"
             yield scrapy.Request(url=job_url,
                                  dont_filter=True,
                                  callback=self.parse_job_jd,
-                                 meta={"job_id": job_id})
+                                 meta={"job_dict": job_dict})
 
         if response.url == "https://web3.career/":
             next_url = "https://web3.career/?page={page}".format(page="2")
@@ -43,7 +47,8 @@ class Web3CareerSpider(scrapy.Spider):
         """
         jd_xpath = response.xpath('//div/script[@type="application/ld+json"]')[0]
         json_data = json.loads(jd_xpath.root.text)
-        json_data['jobId'] = response.meta['job_id']
+        json_data['jobId'] = response.meta['job_dict']['job_id']
+        json_data['jobTags'] = response.meta['job_dict']['job_tags']
         json_data['fromSource'] = 'web3.career'
         yield json_data
 
