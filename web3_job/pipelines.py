@@ -17,7 +17,7 @@ class Web3JobPipeline:
         return item
 
 
-class RedisPipeline(object):
+class Web3CareerRedisPipeline(object):
 
     # 打开数据库
     def open_spider(self, spider):
@@ -42,4 +42,4 @@ class RedisPipeline(object):
             item = dict(item)
 
         self.item_i += 1
-        self.db_conn.hset('web3_career', 'job', json.dumps(item))
+        self.db_conn.hset(item['fromSource'], item['jobId'], json.dumps(item))

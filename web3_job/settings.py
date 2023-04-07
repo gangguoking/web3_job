@@ -64,8 +64,7 @@ ROBOTSTXT_OBEY = False
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
     # "web3_job.pipelines.Web3JobPipeline": 300,
-    "web3_job.pipelines.RedisPipeline": 404,
-
+    "web3_job.pipelines.Web3CareerRedisPipeline": 404,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
