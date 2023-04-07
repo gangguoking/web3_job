@@ -14,11 +14,12 @@ class Web3CareerSpider(scrapy.Spider):
 
     def parse(self, response):
         post_career_xpath_list = response.xpath('///table[@class="table table-borderless"]/tbody[@class="tbody"]/tr')
-        print(len(post_career_xpath_list))
+        job_dict = {}
         for row in post_career_xpath_list:
             job_id = row.xpath('./td[1]/div/div/div/a[@style=" text-decoration: none"]').attrib['href']
             job_name = row.xpath('./td[1]/div/div/div/a[@style=" text-decoration: none"]/h2')[0].root.text[:-1]
-            print(job_id, job_name)
+            job_dict[job_name] = job_id
+
         post_jd_xpath_list = response.xpath('//script[@type="application/ld+json"]')
         for row in post_jd_xpath_list:
             try:
