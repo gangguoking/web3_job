@@ -1,3 +1,9 @@
 /.idea/
 /venv/
 __pycache__/
+/web3_job/spiders/email.json
+/web3_job/utils/new_rsa.py
+/web3_job/utils/aes.py
+/web3_job/spiders/data.json
+/web3_job/utils/rsa.py
+/web3_job/utils/sha256.py
