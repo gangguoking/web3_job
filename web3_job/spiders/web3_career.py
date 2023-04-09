@@ -3,7 +3,25 @@ import logging
 
 import scrapy
 
-MAX_PAGE = 15
+MAX_PAGE = 40
+
+
+COMPANY_DICT = {
+  "Kodex": "james@kodex.io",
+  "GammaSwap Labs": "dgoodkin@gammaswap.com",
+  "Lemon.io": "https://lemon.io/escape-the-matrix/",
+  "Etherscan": "jobs@etherscan.io",
+  "Stake Capital": "hr@stake.capital",
+  "Coinmarketcap": "https://careers.smartrecruiters.com/B6/",
+  "Consensys": "https://consensys.net/open-roles/",
+  "Solana Foundation": "https://jobs.ashbyhq.com/solana%20foundation",
+  "Bitoasis": "https://careers.smartrecruiters.com/bitoasis",
+  "MetaMask": "https://wellfound.com/company/metamask/jobs/",
+  "OKEX": "https://wellfound.com/company/okexofficial/jobs/",
+  "Bitfinex": "https://bitfinex.recruitee.com/o/",
+  "Binance": "https://jobs.lever.co/binance/",
+  "Popoo": "hr@popoo.io"
+}
 
 
 class Web3CareerSpider(scrapy.Spider):
@@ -56,6 +74,12 @@ class Web3CareerSpider(scrapy.Spider):
             json_data = json.loads(jd_xpath.root.text)
         except Exception as exc:
             logging.error(f"{jd_xpath}\n\n{exc}\n ")
+            return
+
+        company_name = json_data['hiringOrganization']['name']
+        if company_name in COMPANY_DICT:
+            json_data['apply'] = COMPANY_DICT[company_name]
+        else:
             return
         json_data['jobId'] = response.meta['job_dict']['job_id']
         json_data['jobTags'] = response.meta['job_dict']['job_tags']

@@ -33,4 +33,10 @@ def get_web3_career_company_all(key='web3.career') -> dict:
 
 
 if __name__ == '__main__':
-    get_web3_career_company_all()
+    tem_jobs_list = get_web3_career_jobs_all()
+    for row in tem_jobs_list:
+        print(row['sourceUrl'], row['jobId'])
+    tem_companys_dict = get_web3_career_company_all()
+    print(len(tem_companys_dict))
+    for row in tem_companys_dict:
+        print(row, tem_companys_dict[row])
