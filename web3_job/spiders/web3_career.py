@@ -81,7 +81,11 @@ class Web3CareerSpider(scrapy.Spider):
             json_data['apply'] = COMPANY_DICT[company_name]
         else:
             return
+
+        html_xpath_description = response.xpath('//div[@class="text-right-RMTEyLjEyMC4zNy4xNzIM-secondary"]')[0].extract()
+
         json_data['jobId'] = response.meta['job_dict']['job_id']
+        json_data['htmlJobDescription'] = html_xpath_description
         json_data['jobTags'] = response.meta['job_dict']['job_tags']
         json_data['sourceUrl'] = response.url
         json_data['fromSource'] = 'web3.career'
