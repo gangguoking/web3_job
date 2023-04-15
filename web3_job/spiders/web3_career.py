@@ -82,7 +82,7 @@ class Web3CareerSpider(scrapy.Spider):
         else:
             return
 
-        html_xpath_description = response.xpath('//div[@class="text-right-RMTEyLjEyMC4zNy4xNzIM-secondary"]')[0].extract()
+        html_xpath_description = response.xpath('//turbo-frame/div/div/div/div/div[@style][@class]/div[@class]')[0].extract()
 
         json_data['jobId'] = response.meta['job_dict']['job_id']
         json_data['htmlJobDescription'] = html_xpath_description
