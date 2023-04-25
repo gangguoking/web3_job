@@ -20,7 +20,26 @@ COMPANY_DICT = {
   "OKEX": "https://wellfound.com/company/okexofficial/jobs/",
   "Bitfinex": "https://bitfinex.recruitee.com/o/",
   "Binance": "https://jobs.lever.co/binance/",
-  "Popoo": "hr@popoo.io"
+  "Popoo": "hr@popoo.io",
+  "Ripple": "https://ripple.com/careers/all-jobs/",
+  "Illuvium": "https://illuvium.io/jobs",
+  "Swan": "https://swanbitcoin.applytojob.com/",
+  "Keyrock": "https://jobs.ashbyhq.com/keyrock/",
+  "Coinbase": "https://www.coinbase.com/careers/positions/",
+  "Chainlink Labs": "https://wellfound.com/company/chainlink-labs/jobs/",
+  "eBay": "https://jobs.ebayinc.com/us/en/job/",
+  "Clutchy": "https://apply.workable.com/clutchy-1/",
+  "Gnosis": "https://gnosis.jobs.personio.com/",
+  "Hang": "https://jobs.ashbyhq.com/Hang/",
+  "Rain": "https://jobs.ashbyhq.com/rain",
+  "Square": "https://careers.smartrecruiters.com/Square/",
+  "Ethereum Address Service (EAS)": "https://careers.smartrecruiters.com/ethereumaddressserviceeas/",
+  "Offchain Labs": "https://jobs.lever.co/offchainlabs/",
+  "LCX": "https://lcx.freshteam.com/jobs/",
+  "Cryptio": "https://jobs.ashbyhq.com/cryptio/",
+  "Polygon Labs": "https://jobs.lever.co/Polygon",
+  "OpenSea": "https://jobs.lever.co/OpenSea/",
+  "GammaSwap": "https://wellfound.com/company/gammaswap/jobs"
 }
 
 
